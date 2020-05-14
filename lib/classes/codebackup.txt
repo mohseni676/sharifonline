@@ -1,0 +1,101 @@
+Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height >= 775.0
+                ? MediaQuery.of(context).size.height
+                : 775.0,
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                  colors: [
+                    Theme.Colors.loginGradientStart,
+                    Theme.Colors.loginGradientEnd
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 1.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+            ),
+            child: new Center(
+                child: new Container(
+              height: 400,
+              width: 400,
+              child: new Card(
+                color: Colors.white60,
+                child: new Container(
+                  height: MediaQuery.of(context).size.height >= 235.0
+                      ? MediaQuery.of(context).size.height
+                      : 235.0,
+                  padding: EdgeInsets.all(15),
+                  child: Column(
+                    //mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      new Text('شماره تماس'),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                      ),
+                      new TextField(
+                        controller: _controller,
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            prefixIcon: Icon(FontAwesomeIcons.phoneSquare)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                      ),
+                      new MaterialButton(
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              new Text('شماره گیری'),
+                              Padding(
+                                padding: EdgeInsets.only(left: 35),
+                              ),
+                              new Icon(
+                                FontAwesomeIcons.phoneAlt,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
+                          color: Colors.greenAccent,
+                          padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
+                          onPressed: () {
+                            FocusScopeNode currentFocus =
+                                FocusScope.of(context);
+
+                            if (!currentFocus.hasPrimaryFocus) {
+                              currentFocus.unfocus();
+                            }
+                            _handleCall(context);
+                          }),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                      ),
+                      new MaterialButton(
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              new Text('قطع تماس'),
+                              Padding(
+                                padding: EdgeInsets.only(left: 35),
+                              ),
+                              new Icon(
+                                FontAwesomeIcons.phoneSquareAlt,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
+                          color: Colors.greenAccent,
+                          padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
+                          onPressed: () {
+                            _handleHangup();
+                          }),
+                      new Text('${_registrationState.state}'),
+                      new Text('${_PhoneState}')
+                    ],
+                  ),
+                ),
+              ),
+            ))),
